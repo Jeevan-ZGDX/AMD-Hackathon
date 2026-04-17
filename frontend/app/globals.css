@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 255 255 255;
+    --foreground: 15 23 42;
+  }
+  
+  body {
+    background-color: #ffffff;
+    color: #0f172a;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  }
+}
+
+@layer components {
+  .glass {
+    @apply bg-white border border-slate-200 shadow-sm;
+  }
+
+  .btn-primary {
+    @apply bg-blue-600 text-white px-6 py-2.5 rounded-lg font-semibold hover:bg-blue-700 transition-all active:scale-95 shadow-md shadow-blue-500/10;
+  }
+
+  .btn-secondary {
+    @apply bg-white text-slate-700 px-6 py-2.5 rounded-lg font-semibold border border-slate-200 hover:bg-slate-50 transition-all;
+  }
+
+  .input-field {
+    @apply bg-slate-50 border border-slate-200 rounded-lg px-4 py-2.5 text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all;
+  }
+}
+
+/* Light Mode Mesh Gradient */
+.hero-bg {
+  position: absolute; inset: 0;
+  background: radial-gradient(circle at 50% -20%, rgba(59, 130, 246, 0.08), transparent 60%),
+              radial-gradient(circle at 0% 100%, rgba(16, 185, 129, 0.03), transparent 40%);
+  z-index: -1;
+}
+
+.hero-grid {
+  position: absolute; inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.02) 1px, transparent 1px);
+  background-size: 40px 40px;
+  mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+  z-index: -1;
+}

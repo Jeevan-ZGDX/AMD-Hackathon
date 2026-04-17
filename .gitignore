@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+backend/venv/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Next.js
+.next/
+out/
+build/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.python-version
+
+# IDEs
+.vscode/
+.idea/
+.DS_Store
+
+# Large Data (Optional, but recommended for clean repo)
+backend/skus_seed.json
