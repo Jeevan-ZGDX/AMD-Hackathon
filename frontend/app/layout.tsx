@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Enterprise Retail Intelligence.",
 };
 
+import AuthProvider from "@/lib/auth/AuthProvider";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -19,8 +21,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${syne.variable} ${spaceMono.variable} font-syne antialiased pt-20`}>
-        <Navbar />
-        {children}
+        <AuthProvider>
+          <Navbar />
+          {children}
+        </AuthProvider>
       </body>
     </html>
   );
