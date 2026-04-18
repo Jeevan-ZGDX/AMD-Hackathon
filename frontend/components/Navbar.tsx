@@ -3,9 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { Search, ShoppingCart, User, Command } from "lucide-react";
+import { useCart } from "@/lib/store/cartStore";
 
 export default function Navbar() {
   const [searchQuery, setSearchQuery] = useState("");
+  const { totalItems, toggleDrawer } = useCart();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -42,21 +44,28 @@ export default function Navbar() {
       {/* Actions */}
       <div className="flex items-center gap-6">
         <div className="hidden lg:flex items-center gap-8 text-[11px] font-bold text-slate-500 uppercase tracking-wider mr-4">
-          <Link href="/shop" className="hover:text-blue-600 transition-colors">Solutions</Link>
-          <Link href="/dashboard" className="hover:text-blue-600 transition-colors">Analytics</Link>
+          <Link href="/" className="hover:text-blue-600 transition-colors">Marketplace</Link>
+          <Link href="/dashboard/retailer" className="hover:text-blue-600 transition-colors">Operations</Link>
         </div>
         
         <div className="h-4 w-px bg-slate-200 hidden md:block"></div>
         
         <div className="flex items-center gap-2">
-          <Link href="/login" className="p-2 text-slate-400 hover:text-blue-600 transition-colors">
+          <Link href="/login/customer" className="p-2 text-slate-400 hover:text-blue-600 transition-colors">
             <User className="w-4 h-4" />
           </Link>
-          <Link href="/shop" className="p-2 text-slate-400 hover:text-blue-600 transition-colors relative">
+          <button 
+            onClick={() => toggleDrawer(true)}
+            className="p-2 text-slate-400 hover:text-blue-600 transition-colors relative"
+          >
             <ShoppingCart className="w-4 h-4" />
-            <span className="absolute top-1 right-1 h-1.5 w-1.5 rounded-full bg-blue-600"></span>
-          </Link>
-          <Link href="/login" className="ml-4 btn-primary text-xs !px-5 !py-2 uppercase tracking-wide">
+            {totalItems > 0 && (
+              <span className="absolute top-1 right-1 h-3.5 w-3.5 rounded-full bg-blue-600 text-white text-[8px] font-bold flex items-center justify-center animate-in zoom-in">
+                {totalItems}
+              </span>
+            )}
+          </button>
+          <Link href="/login/customer" className="ml-4 btn-primary text-xs !px-5 !py-2 uppercase tracking-wide">
             Sign In
           </Link>
         </div>

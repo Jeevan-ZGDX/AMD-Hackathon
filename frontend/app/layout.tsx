@@ -12,6 +12,8 @@ export const metadata: Metadata = {
 };
 
 import AuthProvider from "@/lib/auth/AuthProvider";
+import ToastContainer from "@/components/ui/Toast";
+import CartDrawer from "@/components/cart/CartDrawer";
 
 export default function RootLayout({
   children,
@@ -23,6 +25,8 @@ export default function RootLayout({
       <body className={`${syne.variable} ${spaceMono.variable} font-syne antialiased pt-20`}>
         <AuthProvider>
           <Navbar />
+          <CartDrawer />
+          <ToastContainer />
           {children}
         </AuthProvider>
       </body>

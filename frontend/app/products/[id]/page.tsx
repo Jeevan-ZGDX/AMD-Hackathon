@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { notFound } from 'next/navigation'
 import { Star, ShieldCheck, Truck, RotateCcw, ShoppingCart } from 'lucide-react'
 import Link from 'next/link'
+import AddToCartButton from '@/components/products/AddToCartButton'
 
 export const revalidate = 60;
 
@@ -89,27 +90,9 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
                 )}
              </div>
 
-             <div className="flex items-center gap-4">
-                <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Quantity:</span>
-                <select 
-                  disabled={isOutOfStock}
-                  className="bg-slate-50 border border-slate-200 rounded-xl px-4 py-2 font-mono font-bold text-slate-900 outline-none focus:border-blue-500"
-                >
-                  {[...Array(maxQty)].map((_, i) => (
-                    <option key={i+1} value={i+1}>{i+1}</option>
-                  ))}
-                </select>
-             </div>
-          </div>
+             <AddToCartButton product={product} />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <button 
-              disabled={isOutOfStock}
-              className="btn-primary !py-5 flex items-center justify-center gap-3 text-sm uppercase tracking-widest font-black disabled:opacity-30"
-            >
-              <ShoppingCart className="w-5 h-5" />
-              Add to Cart
-            </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
             <Link 
               href="/"
               className="btn-secondary !py-5 flex items-center justify-center text-sm uppercase tracking-widest font-black"

@@ -2,6 +2,8 @@
 
 import Link from 'next/link'
 import { Star, ShoppingCart } from 'lucide-react'
+import { useCart } from '@/lib/store/cartStore'
+import { toast } from '@/lib/store/toastStore'
 
 interface ProductCardProps {
   product: {
@@ -19,6 +21,7 @@ interface ProductCardProps {
 }
 
 export default function ProductCard({ product }: ProductCardProps) {
+  const { addItem } = useCart()
   const isOutOfStock = product.stock_count === 0
 
   return (
@@ -80,8 +83,8 @@ export default function ProductCard({ product }: ProductCardProps) {
             disabled={isOutOfStock}
             className="btn-primary !text-[10px] !py-2.5 flex items-center justify-center gap-2 uppercase tracking-wider disabled:opacity-30 disabled:grayscale"
             onClick={() => {
-              // Cart logic will be added in Module 03
-              alert(`Added ${product.name} to cart! (Demo)`)
+              addItem(product, 1)
+              toast.success(`Added ${product.name} to cart!`)
             }}
           >
             <ShoppingCart className="w-3 h-3" />
