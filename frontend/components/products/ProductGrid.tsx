@@ -1,9 +1,10 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect, useRef } from 'react'
 import ProductCard from '@/components/products/ProductCard'
 import { Filter, Search as SearchIcon, ChevronDown } from 'lucide-react'
 import Fuse from 'fuse.js'
+import gsap from 'gsap'
 
 interface Product {
   id: string
@@ -29,6 +30,17 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
   const [activeCategory, setActiveCategory] = useState('All')
   const [searchQuery, setSearchQuery] = useState('')
   const [sortBy, setSortBy] = useState('newest')
+  const gridRef = useRef<HTMLDivElement>(null)
+
+  // Listen for global search events from Navbar
+  useEffect(() => {
+    const handleGlobalSearch = (e: CustomEvent) => {
+      setSearchQuery(e.detail)
+    }
+    
+    window.addEventListener('search', handleGlobalSearch as EventListener)
+    return () => window.removeEventListener('search', handleGlobalSearch as EventListener)
+  }, [])
 
   // 1. Filtering Logic
   const filteredProducts = useMemo(() => {
@@ -59,6 +71,17 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
     return result
   }, [initialProducts, activeCategory, searchQuery, sortBy])
 
+  // GSAP Animation
+  useEffect(() => {
+    if (gridRef.current && gridRef.current.children.length > 0) {
+      gsap.fromTo(
+        gridRef.current.children,
+        { opacity: 0, y: 20, scale: 0.95 },
+        { opacity: 1, y: 0, scale: 1, duration: 0.4, stagger: 0.05, ease: "back.out(1.5)" }
+      )
+    }
+  }, [filteredProducts])
+
   return (
     <div className="flex flex-col gap-8">
       {/* Search & Filter Bar */}
@@ -72,7 +95,7 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
             <button 
               key={cat} 
               onClick={() => setActiveCategory(cat)}
-              className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === cat ? 'bg-blue-600 text-white shadow-lg' : 'bg-slate-50 text-slate-500 hover:text-slate-900 hover:bg-slate-100'}`}
+              className={`px-6 py-2 rounded-full text-xs font-bold uppercase tracking-widest transition-all whitespace-nowrap ${activeCategory === cat ? 'bg-blue-600 text-white shadow-lg shadow-blue-500/30 scale-105' : 'bg-slate-50 text-slate-500 hover:text-slate-900 hover:bg-slate-100'}`}
             >
               {cat}
             </button>
@@ -88,7 +111,7 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
               placeholder="Fuzzy search..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-blue-500 transition-all"
+              className="w-full bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-10 pr-4 text-sm focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
             />
           </div>
 
@@ -97,7 +120,7 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
             <select 
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="appearance-none bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-4 pr-10 text-sm font-bold text-slate-700 focus:outline-none focus:border-blue-500 transition-all cursor-pointer"
+              className="appearance-none bg-slate-50 border border-slate-200 rounded-xl py-2.5 pl-4 pr-10 text-sm font-bold text-slate-700 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all cursor-pointer"
             >
               <option value="newest">Newest First</option>
               <option value="price-low">Price: Low to High</option>
@@ -111,14 +134,14 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
 
       {/* Product Grid */}
       {filteredProducts.length > 0 ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
           {filteredProducts.map(p => (
             <ProductCard key={p.id} product={p} />
           ))}
         </div>
       ) : (
-        <div className="py-20 flex flex-col items-center justify-center text-center bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">
-          <div className="text-4xl mb-4">🔍</div>
+        <div className="py-20 flex flex-col items-center justify-center text-center bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="text-4xl mb-4 animate-bounce">🔍</div>
           <h3 className="text-xl font-bold text-slate-900 mb-2">No products found</h3>
           <p className="text-slate-500 text-sm">Try adjusting your filters or search query.</p>
         </div>
@@ -126,3 +149,4 @@ export default function ProductGrid({ initialProducts }: ProductGridProps) {
     </div>
   )
 }
+
