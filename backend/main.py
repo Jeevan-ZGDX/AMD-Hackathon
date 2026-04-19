@@ -1,6 +1,7 @@
 import asyncio
 import json
 import random
+import os
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Query
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -17,18 +18,21 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# --- EXPANDED IN-MEMORY DATABASE ---
-DB_PRODUCTS = [
-    { "id": 1, "name": "Organic Alphonso Mangoes", "category": "Fruits", "price": 450, "competitor_price": 520, "stock": 45, "tag": "Seasonal", "color": "from-yellow-400/20 to-orange-500/10" },
-    { "id": 2, "name": "Fresh Broccoli (500g)", "category": "Vegetables", "price": 85, "competitor_price": 110, "stock": 120, "tag": "Bestseller", "color": "from-green-500/20 to-emerald-600/10" },
-    { "id": 3, "name": "A2 Desi Cow Ghee (500ml)", "category": "Dairy", "price": 890, "competitor_price": 950, "stock": 30, "tag": "Premium", "color": "from-yellow-600/20 to-yellow-800/10" },
-    { "id": 4, "name": "Quinoa Puffs - Masala", "category": "Snacks", "price": 120, "competitor_price": 150, "stock": 200, "tag": "Healthy", "color": "from-red-400/20 to-pink-500/10" },
-    { "id": 5, "name": "Cold Pressed Orange Juice", "category": "Beverages", "price": 180, "competitor_price": 220, "stock": 80, "tag": "Fresh", "color": "from-orange-400/20 to-yellow-500/10" },
-    { "id": 6, "name": "Hass Avocado (Imported)", "category": "Fruits", "price": 299, "competitor_price": 350, "stock": 15, "tag": "Limited", "color": "from-green-700/20 to-green-900/10" },
-]
+# --- LOAD SEED DATA FROM JSON FILES ---
+BACKEND_DIR = os.path.dirname(os.path.abspath(__file__))
 
+def load_json_seed(filename: str, fallback: list = []):
+    filepath = os.path.join(BACKEND_DIR, filename)
+    if os.path.exists(filepath):
+        with open(filepath, "r") as f:
+            print(f"✅ Loaded seed data from {filename}")
+            return json.load(f)
+    print(f"⚠️  Seed file {filename} not found, using fallback.")
+    return fallback
+
+DB_PRODUCTS = load_json_seed("seed_products.json")
 DB_CART = []
-DB_ORDERS = [] # Tracking order history
+DB_ORDERS = load_json_seed("seed_orders.json")
 
 # --- MODELS ---
 class BehaviorEvent(BaseModel):
@@ -108,12 +112,20 @@ async def get_orders():
 @app.get("/api/v1/admin/analytics")
 async def get_analytics():
     total_sales = sum(o["total"] for o in DB_ORDERS)
+    # Compute top categories from real product data
+    from collections import Counter
+    cat_counter = Counter(p["category"] for p in DB_PRODUCTS)
+    top_cats = [cat for cat, _ in cat_counter.most_common(5)]
     return {
         "total_revenue": total_sales,
         "total_orders": len(DB_ORDERS),
-        "top_categories": ["Fruits", "Dairy", "Vegetables"],
-        "active_users": random.randint(50, 200),
-        "stock_alerts": [p["name"] for p in DB_PRODUCTS if p["stock"] < 20]
+        "top_categories": top_cats,
+        "active_users": random.randint(120, 380),
+        "avg_order_value": round(total_sales / max(len(DB_ORDERS), 1), 2),
+        "stock_alerts": [p["name"] for p in DB_PRODUCTS if p["stock"] < 20],
+        "low_stock_count": len([p for p in DB_PRODUCTS if p["stock"] < 20]),
+        "total_products": len(DB_PRODUCTS),
+        "categories_count": len(set(p["category"] for p in DB_PRODUCTS))
     }
 
 @app.post("/api/v1/products")

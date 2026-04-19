@@ -6,7 +6,21 @@ export function createClient() {
 
   if (!url || !key) {
     console.error("Supabase credentials missing. Check .env.local");
-    return {} as any; // Return dummy to prevent crash, though auth will fail
+    return {
+      auth: {
+        getSession: async () => ({ data: { session: null }, error: null }),
+        onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+      },
+      from: () => ({
+        select: () => ({
+          eq: () => ({
+            order: () => Promise.resolve({ data: [], error: null }),
+            single: () => Promise.resolve({ data: null, error: null }),
+          }),
+          single: () => Promise.resolve({ data: null, error: null }),
+        }),
+      }),
+    } as any;
   }
 
   return createBrowserClient(url, key);

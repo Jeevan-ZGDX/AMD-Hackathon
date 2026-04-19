@@ -29,7 +29,7 @@ export default function AuthProvider({ children }: { children: React.ReactNode }
 
     hydrateAuth()
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event: string, session: any) => {
       if (session?.user) {
         setUser(session.user)
         const { data: profile } = await supabase

@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import PreCognitiveTracker from "@/components/PreCognitiveTracker";
 import { Filter, ChevronRight, MapPin, Sparkles, ShoppingBag } from "lucide-react";
 
-const CATEGORIES = ["All Items", "Produce", "Dairy", "Nutrition", "Beverages"];
+const CATEGORIES = ["All Items", "Fruits", "Vegetables", "Dairy", "Snacks", "Beverages", "Pantry", "Bakery", "Seafood"];
 
 export default function Shop() {
   const [products, setProducts] = useState<any[]>([]);
@@ -22,8 +22,7 @@ export default function Shop() {
   const fetchProducts = async (cat = activeCategory, query = "") => {
     let url = "http://localhost:8000/api/v1/products?";
     if (cat !== "All Items") {
-        const catMap: any = { "Produce": "Fruits", "Nutrition": "Snacks", "Dairy": "Dairy", "Beverages": "Beverages" };
-        url += `category=${catMap[cat] || cat}&`;
+        url += `category=${cat}&`;
     }
     if (query) url += `q=${query}`;
     const res = await fetch(url);

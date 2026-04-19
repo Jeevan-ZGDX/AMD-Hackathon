@@ -1,0 +1,157 @@
+[
+  {
+    "order_id": "ORD-7821",
+    "user_id": "user_001",
+    "items": [
+      { "id": 3, "name": "A2 Desi Cow Ghee (500ml)", "price": 890 },
+      { "id": 11, "name": "Japanese Matcha Powder (100g)", "price": 599 },
+      { "id": 27, "name": "Free Range Eggs (12pc)", "price": 185 }
+    ],
+    "total": 1674,
+    "status": "Delivered",
+    "delivery_slot": "9 AM - 12 PM",
+    "created_at": "2026-04-18T09:30:00Z"
+  },
+  {
+    "order_id": "ORD-4456",
+    "user_id": "user_002",
+    "items": [
+      { "id": 1, "name": "Organic Alphonso Mangoes (1kg)", "price": 450 },
+      { "id": 9, "name": "Dark Chocolate Almonds (250g)", "price": 349 }
+    ],
+    "total": 799,
+    "status": "Delivered",
+    "delivery_slot": "2 PM - 5 PM",
+    "created_at": "2026-04-18T14:15:00Z"
+  },
+  {
+    "order_id": "ORD-3318",
+    "user_id": "user_003",
+    "items": [
+      { "id": 14, "name": "Manuka Honey — UMF 15+ (250g)", "price": 2499 },
+      { "id": 22, "name": "Aged Parmesan Cheese (200g)", "price": 650 },
+      { "id": 17, "name": "Truffle Infused Olive Oil (250ml)", "price": 899 }
+    ],
+    "total": 4048,
+    "status": "Processing",
+    "delivery_slot": "10 AM - 1 PM",
+    "created_at": "2026-04-19T08:45:00Z"
+  },
+  {
+    "order_id": "ORD-2190",
+    "user_id": "user_004",
+    "items": [
+      { "id": 20, "name": "Wild Caught Salmon Fillet (300g)", "price": 749 },
+      { "id": 15, "name": "Oat Milk — Barista Edition (1L)", "price": 225 },
+      { "id": 8, "name": "Organic Baby Spinach (200g)", "price": 65 },
+      { "id": 24, "name": "Rainbow Bell Peppers (Pack of 3)", "price": 120 }
+    ],
+    "total": 1159,
+    "status": "Delivered",
+    "delivery_slot": "6 PM - 9 PM",
+    "created_at": "2026-04-17T18:00:00Z"
+  },
+  {
+    "order_id": "ORD-5567",
+    "user_id": "user_005",
+    "items": [
+      { "id": 25, "name": "Single Origin Coffee Beans (250g)", "price": 495 },
+      { "id": 12, "name": "Sourdough Bread Loaf", "price": 195 },
+      { "id": 7, "name": "Greek Yogurt — Blueberry (400g)", "price": 165 }
+    ],
+    "total": 855,
+    "status": "Shipped",
+    "delivery_slot": "8 AM - 11 AM",
+    "created_at": "2026-04-19T07:30:00Z"
+  },
+  {
+    "order_id": "ORD-8934",
+    "user_id": "user_001",
+    "items": [
+      { "id": 28, "name": "Acai Bowl Mix — Frozen (300g)", "price": 450 },
+      { "id": 13, "name": "Organic Chia Seeds (500g)", "price": 275 },
+      { "id": 18, "name": "Protein Granola — Peanut Crunch (400g)", "price": 385 }
+    ],
+    "total": 1110,
+    "status": "Delivered",
+    "delivery_slot": "11 AM - 2 PM",
+    "created_at": "2026-04-16T11:20:00Z"
+  },
+  {
+    "order_id": "ORD-6712",
+    "user_id": "user_006",
+    "items": [
+      { "id": 16, "name": "Dragon Fruit — Pink (2pc)", "price": 199 },
+      { "id": 10, "name": "Kombucha — Ginger Lemon (330ml)", "price": 145 },
+      { "id": 30, "name": "Coconut Water — King Coconut (6x250ml)", "price": 240 }
+    ],
+    "total": 584,
+    "status": "Processing",
+    "delivery_slot": "3 PM - 6 PM",
+    "created_at": "2026-04-19T15:00:00Z"
+  },
+  {
+    "order_id": "ORD-1098",
+    "user_id": "user_007",
+    "items": [
+      { "id": 29, "name": "Almond Butter — Crunchy (350g)", "price": 525 },
+      { "id": 26, "name": "Fresh Basil Pesto (180g)", "price": 245 }
+    ],
+    "total": 770,
+    "status": "Delivered",
+    "delivery_slot": "12 PM - 3 PM",
+    "created_at": "2026-04-15T12:45:00Z"
+  },
+  {
+    "order_id": "ORD-9283",
+    "user_id": "user_008",
+    "items": [
+      { "id": 4, "name": "Quinoa Puffs — Masala", "price": 120 },
+      { "id": 21, "name": "Organic Turmeric Latte Mix (200g)", "price": 399 },
+      { "id": 5, "name": "Cold Pressed Orange Juice (1L)", "price": 180 },
+      { "id": 19, "name": "Sparkling Water — Elderflower (6x330ml)", "price": 320 }
+    ],
+    "total": 1019,
+    "status": "Shipped",
+    "delivery_slot": "9 AM - 12 PM",
+    "created_at": "2026-04-19T09:10:00Z"
+  },
+  {
+    "order_id": "ORD-4401",
+    "user_id": "user_009",
+    "items": [
+      { "id": 23, "name": "Japanese Mochi Ice Cream (6pc)", "price": 299 },
+      { "id": 6, "name": "Hass Avocado — Imported (2pc)", "price": 299 },
+      { "id": 2, "name": "Fresh Broccoli (500g)", "price": 85 }
+    ],
+    "total": 683,
+    "status": "Delivered",
+    "delivery_slot": "5 PM - 8 PM",
+    "created_at": "2026-04-14T17:30:00Z"
+  },
+  {
+    "order_id": "ORD-7756",
+    "user_id": "user_010",
+    "items": [
+      { "id": 14, "name": "Manuka Honey — UMF 15+ (250g)", "price": 2499 }
+    ],
+    "total": 2499,
+    "status": "Processing",
+    "delivery_slot": "10 AM - 1 PM",
+    "created_at": "2026-04-19T10:00:00Z"
+  },
+  {
+    "order_id": "ORD-3389",
+    "user_id": "user_002",
+    "items": [
+      { "id": 11, "name": "Japanese Matcha Powder (100g)", "price": 599 },
+      { "id": 25, "name": "Single Origin Coffee Beans (250g)", "price": 495 },
+      { "id": 15, "name": "Oat Milk — Barista Edition (1L)", "price": 225 },
+      { "id": 12, "name": "Sourdough Bread Loaf", "price": 195 }
+    ],
+    "total": 1514,
+    "status": "Delivered",
+    "delivery_slot": "7 AM - 10 AM",
+    "created_at": "2026-04-13T07:15:00Z"
+  }
+]

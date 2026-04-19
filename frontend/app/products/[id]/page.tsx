@@ -92,13 +92,14 @@ export default async function ProductDetailPage({ params }: { params: { id: stri
 
              <AddToCartButton product={product} />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
-            <Link 
-              href="/"
-              className="btn-secondary !py-5 flex items-center justify-center text-sm uppercase tracking-widest font-black"
-            >
-              Back to Marketplace
-            </Link>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <Link 
+                href="/"
+                className="btn-secondary !py-5 flex items-center justify-center text-sm uppercase tracking-widest font-black"
+              >
+                Back to Marketplace
+              </Link>
+            </div>
           </div>
 
           {/* Trust Badges */}
